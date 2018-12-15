@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{.Title}}</title>
+	<link rel="stylesheet" href="/static/css/wing.css">
+</head>
+<body>
+	<h1><b>{{.Title}}</b></h1>
+
+	<p>[<a href="/edit/{{.Title}}">edit</a>]</p>
+
+	<div>{{printf "%s" .Body}}</div>
+</body>
+</html>
+
