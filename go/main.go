@@ -20,11 +20,11 @@ type fileData struct{
 	ID xid.ID
 	Name string
 	Path string
-	Ordered_frequency []int
+	Frequency []int
 }
 
 func drawChart(res http.ResponseWriter, req *http.Request) {
-	readdata()
+	readdata(filepath.Clean(os.Args[1]))
 	graph := chart.Chart{
 		XAxis: chart.XAxis{
 			Style: chart.StyleShow(), //enables / displays the x-axis
@@ -72,7 +72,7 @@ func sendJson(res http.ResponseWriter, req *http.Request){
 		ID : xid.New(),
 		Name: filepath.Base(os.Args[1]),
 		Path: filepath.Clean(os.Args[1]),
-		Ordered_frequency: readdata(),
+		Frequency: readdata(filepath.Clean(os.Args[1])),
 	}
 
 	json, err := json.Marshal(request_data)
@@ -83,10 +83,10 @@ func sendJson(res http.ResponseWriter, req *http.Request){
 	fmt.Fprintf(res,"%s", json)
 }
 
-func readdata() []int{
+func readdata(file string) []int{
 	ydata := make([]int, 256)
 
-	data, err := ioutil.ReadFile(filepath.Clean(os.Args[1]))
+	data, err := ioutil.ReadFile(file)
 	if err != nil {
 		log.Fatal(err)
 		os.Exit(1)
@@ -101,6 +101,12 @@ func readdata() []int{
 	return ydata
 }
 
+func serveRoot(res http.ResponseWriter, req *http.Request) {
+
+	http.ServeFile(res, req, "html/root.html")
+}
+
+
 func main() {
 	if len(os.Args)< 2 {
 		err := errors.New("Not enough arguments, missing input filename")
@@ -114,8 +120,11 @@ func main() {
 		Xdata[i] = float64(i)
 	}
 
-	http.HandleFunc("/", drawChartWide)
+	// http.HandleFunc("/", drawChartWide)
+	http.HandleFunc("/favicon.ico", http.NotFound)
 	http.HandleFunc("/wide", drawChart)
 	http.HandleFunc("/json", sendJson)
+	http.HandleFunc("/view", serveRoot)
+	// http.Handle("/", http.ServeFile("./html/"))
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
