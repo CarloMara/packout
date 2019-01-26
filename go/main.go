@@ -104,9 +104,9 @@ func readdata(file string) []int{
 	var index uint16
 
 	for i := 0; i < file_lenght; i+=2 {
-		word := data[i:i+2]
-		index = uint16(word[0]) << 8
-		index += uint16(word[1])
+		// word := data[i:i+2]
+		index = uint16(data[i]) << 8
+		index += uint16(data[i+1])
 		// fmt.Printf("%#x\n", index)
 		// used to debug
 		// if i == 10000{
