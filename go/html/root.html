@@ -12,8 +12,8 @@
 	<script>
 	var myObj;
 	var xmlhttp = new XMLHttpRequest();
-	var xdata = new Array(256);
-	for(var i = 0; i < 256; i++){
+	var xdata = new Array(65536);
+	for(var i = 0; i < 65536; i++){
 	  xdata[i]=i
 	}
 
@@ -37,7 +37,7 @@
 	                scales: {
 	                    yAxes: [{
 	                        ticks: {
-	                            beginAtZero:true
+	                            beginAtZero:false
 	                        }
 	                    }]
 	                }
