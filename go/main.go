@@ -84,7 +84,7 @@ func sendJson(res http.ResponseWriter, req *http.Request){
 }
 
 func readdata(file string) []int{
-	ydata := make([]int, 256)
+	ydata := make([]int, 65536)
 
 	data, err := ioutil.ReadFile(file)
 	if err != nil {
@@ -92,10 +92,45 @@ func readdata(file string) []int{
 		os.Exit(1)
 	}
 
+	file_lenght := len(data)
+	var is_even bool
 
-	for _,byte := range data {
-		ydata[int(byte)]++
+	if file_lenght % 2 == 0{
+		is_even = true
+	} else{
+		is_even = false
 	}
+
+	var index uint16
+
+	for i := 0; i < file_lenght; i+=2 {
+		word := data[i:i+2]
+		index = uint16(word[0]) << 8
+		index += uint16(word[1])
+		// fmt.Printf("%#x\n", index)
+		// used to debug
+		// if i == 10000{
+		// 	break
+		// }
+		ydata[int(index)]++
+	}
+	fmt.Print(is_even)
+
+	// var temp_byte int
+	// var is_qword bool
+
+	// is_qword = false
+	// for _,byte := range data {
+
+	// 	if is_qword{
+	// 		ydata[int(temp_byte+byte)]++
+	// 	}
+
+	// 	if !is_qword {
+	// 		temp_byte = byte >> 8
+	// 		is_qword = true
+	// 	}
+	// }
 
 	fmt.Print(ydata)
 	return ydata
