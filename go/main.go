@@ -4,11 +4,11 @@ import (
 	"github.com/rs/xid"
 	"path/filepath"
 	"fmt"
-	"log"
+	"log"	
 	"net/http"
 	"io/ioutil"
 	"os"
-	"github.com/wcharczuk/go-chart"
+	// "github.com/wcharczuk/go-chart"
 	"errors"
 	"encoding/json"
 )
@@ -23,49 +23,49 @@ type fileData struct{
 	Frequency []int
 }
 
-func drawChart(res http.ResponseWriter, req *http.Request) {
-	readdata(filepath.Clean(os.Args[1]))
-	graph := chart.Chart{
-		XAxis: chart.XAxis{
-			Style: chart.StyleShow(), //enables / displays the x-axis
-		},
-		YAxis: chart.YAxis{
-			Style: chart.StyleShow(), //enables / displays the y-axis
-		},
-		Title: "Value distribution " + os.Args[1],
-		Width: 1920,
-		TitleStyle: chart.StyleShow(),
-		Background: chart.Style{
-			Padding: chart.Box{
-				Top: 40,
-			},
-		},
-		Series: []chart.Series{
-			chart.ContinuousSeries{
-			 	// XValues: Xdata,
-			 	// YValues: Ydata,
-			},
-		},
-	}
+// func drawChart(res http.ResponseWriter, req *http.Request) {
+// 	readdata(filepath.Clean(os.Args[1]))
+// 	graph := chart.Chart{
+// 		XAxis: chart.XAxis{
+// 			Style: chart.StyleShow(), //enables / displays the x-axis
+// 		},
+// 		YAxis: chart.YAxis{
+// 			Style: chart.StyleShow(), //enables / displays the y-axis
+// 		},
+// 		Title: "Value distribution " + os.Args[1],
+// 		Width: 1920,
+// 		TitleStyle: chart.StyleShow(),
+// 		Background: chart.Style{
+// 			Padding: chart.Box{
+// 				Top: 40,
+// 			},
+// 		},
+// 		Series: []chart.Series{
+// 			chart.ContinuousSeries{
+// 			 	// XValues: Xdata,
+// 			 	// YValues: Ydata,
+// 			},
+// 		},
+// 	}
 
-	res.Header().Set("Content-Type", "image/png")
-	graph.Render(chart.PNG, res)
-}
+// 	res.Header().Set("Content-Type", "image/png")
+// 	graph.Render(chart.PNG, res)
+// }
 
-func drawChartWide(res http.ResponseWriter, req *http.Request) {
-	graph := chart.Chart{
-		 //this overrides the default.
-		Series: []chart.Series{
-			chart.ContinuousSeries{
-				XValues: []float64{1.0, 2.0, 3.0, 4.0},
-				YValues: []float64{1.0, 2.0, 3.0, 4.0},
-			},
-		},
-	}
+// func drawChartWide(res http.ResponseWriter, req *http.Request) {
+// 	graph := chart.Chart{
+// 		 //this overrides the default.
+// 		Series: []chart.Series{
+// 			chart.ContinuousSeries{
+// 				XValues: []float64{1.0, 2.0, 3.0, 4.0},
+// 				YValues: []float64{1.0, 2.0, 3.0, 4.0},
+// 			},
+// 		},
+// 	}
 
-	res.Header().Set("Content-Type", "image/png")
-	graph.Render(chart.PNG, res)
-}
+// 	res.Header().Set("Content-Type", "image/png")
+// 	graph.Render(chart.PNG, res)
+// }
 
 func sendJson(res http.ResponseWriter, req *http.Request){
 	request_data := fileData{
@@ -122,7 +122,7 @@ func main() {
 
 	// http.HandleFunc("/", drawChartWide)
 	http.HandleFunc("/favicon.ico", http.NotFound)
-	http.HandleFunc("/wide", drawChart)
+	// http.HandleFunc("/wide", drawChart)
 	http.HandleFunc("/json", sendJson)
 	http.HandleFunc("/view", serveRoot)
 	// http.Handle("/", http.ServeFile("./html/"))
