@@ -24,12 +24,14 @@
         if (this.readyState === 4 && this.status === 200) {
 
             var myObj = JSON.parse(this.responseText);
+
             let arr = Object.values(myObj.Frequency);
-            let min = Math.min(...arr);
+            let max = Math.max(...arr);
+
+            max = max - 100;
 
 
-
-            console.log(typeof(myObj.Frequency));
+            // console.log(typeof(myObj.Frequency));
 
 
 
@@ -37,7 +39,10 @@
             Object.keys(myObj.Frequency).forEach(function(key) {
                 value = myObj.Frequency[key];
                 console.log(key, value);
-                two.makeCircle((two.width*(key>>8)/255), (two.height*(key&255)/255), 1);
+                let circle = two.makeCircle((two.width*(key>>8)/255), (two.height*(key&255)/255), 2);
+                circle.noStroke();
+                circle.fill = rainbow((key-100)*255/max)
+
             });
 
             two.update();
@@ -79,6 +84,11 @@
 
         }
     };
+
+    function rainbow(n) {
+        n = n * 240 / 255;
+        return 'hsl(' + n + ',100%,50%)';
+    }
 
     xmlhttp.open("GET", "/v1/touplejson", true);
     xmlhttp.send();
