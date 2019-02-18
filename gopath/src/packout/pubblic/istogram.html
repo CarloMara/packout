@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>packout</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/two.js/0.6.0/two.min.js"></script
+</head>
+<body>
+
+
+<svg id="draw-shapes" height="100%" width="100%"></svg>
+<script>
+    // Make an instance of two and place it on the page.
+    var elem = document.getElementById('draw-shapes');
+    var params = { fullscreen:true};
+    var two = new Two(params).appendTo(elem);
+
+
+
+
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+
+            var myObj = JSON.parse(this.responseText);
+            let arr = Object.values(myObj.Frequency);
+            let min = Math.min(...arr);
+
+
+
+            console.log(typeof(myObj.Frequency));
+
+
+
+            var value;
+            Object.keys(myObj.Frequency).forEach(function(key) {
+                value = myObj.Frequency[key];
+                console.log(key, value);
+                two.makeCircle((two.width*(key>>8)/255), (two.height*(key&255)/255), 1);
+            });
+
+            two.update();
+
+            console.log();
+
+            // for (var p=0; p<myObj.Frequency.length; p++) {
+            //
+            //     let circle = two.makeCircle(p, p, 1);
+            //     // circle.opacity = (myObj[p] * 100) / max;
+            //
+            // }
+            //
+
+            // two.update()
+            // console.log("handler called")
+            // console.log(myObj)
+            // var ctx = document.getElementById("myChart");
+            // var myChart = new Chart(ctx, {
+            //     type: 'line',
+            //     data: {
+            //         labels: xdata,
+            //         datasets: [{
+            //             label: myObj.Name,
+            //             data: myObj.Frequency,
+            //             borderWidth: 1
+            //         }]
+            //     },
+            //     options: {
+            //         scales: {
+            //             yAxes: [{
+            //                 ticks: {
+            //                     beginAtZero:false
+            //                 }
+            //             }]
+            //         }
+            //     }
+            // });
+
+        }
+    };
+
+    xmlhttp.open("GET", "/v1/touplejson", true);
+    xmlhttp.send();
+
+    // // two has convenience methods to create shapes.
+    // var circle = two.makeCircle(72, 100, 50);
+    // var rect = two.makeRectangle(213, 100, 100, 100);
+    //
+    // var line = two.makeLine(400, 400, 90, 90)
+    //
+    // // The object returned has many stylable properties:
+    // circle.fill = '#FF8000';
+    // // circle.stroke = 'orangered'; // Accepts all valid css color
+    // circle.linewidth = 5;
+    //
+    // rect.fill = 'rgb(0, 200, 255)';
+    // rect.opacity = 0.75;
+    // // rect.noStroke();
+    //
+    // // Don't forget to tell two to render everything
+    // two.update()
+
+
+
+
+</script>
+
+</body>
+</html>
