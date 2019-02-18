@@ -38,10 +38,11 @@
             var value;
             Object.keys(myObj.Frequency).forEach(function(key) {
                 value = myObj.Frequency[key];
-                console.log(key, value);
+                // console.log(key, value);
                 let circle = two.makeCircle((two.width*(key>>8)/255), (two.height*(key&255)/255), 2);
                 circle.noStroke();
-                circle.fill = rainbow((key-100)*255/max)
+                circle.fill = rainbow(((value-100)*255/max));
+                console.log(value, circle.fill);
 
             });
 
@@ -86,8 +87,8 @@
     };
 
     function rainbow(n) {
-        n = n * 240 / 255;
-        return 'hsl(' + n + ',100%,50%)';
+        n = 255 - n;
+        return 'rgb(' + n + ',' + n +',' + n +')';
     }
 
     xmlhttp.open("GET", "/v1/touplejson", true);
