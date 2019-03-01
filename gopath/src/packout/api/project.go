@@ -26,7 +26,6 @@ func Getfilelist() echo.HandlerFunc {
 			context.Logger().Error("Bucket Find fail")
 		}
 
-		//TODO remove allocation if bucket is empty
 		var Projects []model.Project
 
 		for cur.Next(mongo.Contex) {
