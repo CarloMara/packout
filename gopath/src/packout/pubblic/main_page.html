@@ -46,8 +46,11 @@
 
         .upload{
             grid-column: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             /*justify-content:center*/
         }
+
 
     </style>
 </head>
@@ -67,7 +70,7 @@
 
 
     <form class="upload" action="/v2/uploadfile" method="post" enctype="multipart/form-data">
-        File: <input type="file" name="file"><br><br>
+        <input type="file" name="file">
         <input type="submit" value="Submit">
     </form>
 
