@@ -20,37 +20,43 @@
         .containter{
             display: flex;
             width: 100%;
-            justify-content: center;
             flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            /*justify-content: space-around;*/
         }
-        .item{
+
+        .containter div{
+            border: 1px mediumaquamarine solid;
+            padding: 10px;
+        }
+
+
+        .project_lists{
+
             display: flex;
-            justify-content:center
+            /*justify-content:center*/
         }
 
         .upload{
+
             display: flex;
-            justify-content:center
+            /*justify-content:center*/
         }
 
     </style>
 </head>
 <body>
+<div class="title">PACKout directory</div>
 
 <div class="containter">
 
-    <div class="title">PACKout directory</div>
-
-    <div class="item">
-        Click on a link to open that file
-    </div>
-
-    {{range .}}
-        <a class="item">
+       {{range .}}
+        <div class="project_lists">
             Name: {{.Name}}
             Size: {{.Size}}
             ID: {{.Id}}
-        </a>
+        </div>
     {{end}}
 
 
