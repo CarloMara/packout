@@ -12,44 +12,50 @@
         }
 
         .title {
+            grid-column: 2
             font-size: 50px;
-            display: flex;
-            justify-content:center;
         }
 
         .containter{
-            display: flex;
-            width: 100%;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            grid-gap: 1em;
+
             /*justify-content: space-around;*/
         }
 
         .containter div{
-            border: 1px mediumaquamarine solid;
+
             padding: 10px;
+        }
+
+        .title {
+            justify-self: center;
+            grid-column: 2;
+            font-size: 50px;
         }
 
 
         .project_lists{
+            grid-column: 2;
+            border: 1px mediumaquamarine solid;
 
-            display: flex;
+
             /*justify-content:center*/
         }
 
         .upload{
-
-            display: flex;
+            grid-column: 2;
             /*justify-content:center*/
         }
 
     </style>
 </head>
 <body>
-<div class="title">PACKout directory</div>
 
 <div class="containter">
+
+    <div class="title">PACKout directory</div>
 
        {{range .}}
         <div class="project_lists">
