@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <link href="https://fonts.googleapis.com/css?family=Major+Mono+Display" rel="stylesheet">
+
+    <title>PACKout</title>
+    <style>
+        body {
+            font-family: 'Major Mono Display', monospace;
+        }
+
+        .title {
+            font-size: 50px;
+            display: flex;
+            justify-content:center;
+        }
+
+        .containter{
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .item{
+            display: flex;
+            justify-content:center
+        }
+
+        .upload{
+            display: flex;
+            justify-content:center
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="containter">
+
+    <div class="title">PACKout directory</div>
+
+    <div class="item">
+        Click on a link to open that file
+    </div>
+
+    {{range .}}
+        <a class="item">
+            Name: {{.Name}}
+            Size: {{.Size}}
+            ID: {{.Id}}
+        </a>
+    {{end}}
+
+
+    <form class="upload" action="/v2/uploadfile" method="post" enctype="multipart/form-data">
+        File: <input type="file" name="file"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+
+
+</div>
+
+
+
+
+
+</body>
+</html>
