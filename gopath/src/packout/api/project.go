@@ -39,7 +39,7 @@ func Getfilelist() echo.HandlerFunc {
 			Projects = append(Projects, *project)
 		}
 
-		return context.JSON(http.StatusOK, Projects)
+		return context.Render(http.StatusOK, "main_page.html", Projects)
 	}
 }
 
